@@ -21,3 +21,59 @@ const (
 	// Cancels the session that is currently under configuration.
 	RequestCancelSession RequestType = "cancel_session"
 )
+
+// Request represents a request to greetd.
+type Request struct {
+	// Type of the request.
+	Type RequestType `json:"type"`
+
+	// Username. Required if Type is [RequestCreateSession].
+	Username string `json:"username"`
+
+	// Response to the auth message, typically, a password.
+	// Required if Type is [RequestPostAuthMessageResponse].
+	Response string `json:"response"`
+
+	// Command to spawn the session. Required if Type is [RequestStartSession].
+	Cmd []string `json:"cmd"`
+
+	// Additional environment variables for PAM, in the form of "KEY=VALUE".
+	// Required if Type is [RequestStartSession].
+	Env []string `json:"env"`
+}
+
+// NewCreateSessionRequest returns a new [Request] of type
+// [RequestCreateSession].
+func NewCreateSessionRequest(username string) *Request {
+	return &Request{
+		Type:     RequestCreateSession,
+		Username: username,
+	}
+}
+
+// NewPostAuthMessageResponseRequest returns a new [Request] of type
+// [RequestPostAuthMessageResponse].
+func NewPostAuthMessageResponseRequest(response string) *Request {
+	return &Request{
+		Type:     RequestPostAuthMessageResponse,
+		Response: response,
+	}
+}
+
+// NewStartSessionRequest returns a new [Request] of type
+// [RequestStartSession].
+func NewStartSessionRequest(cmd []string, env []string) *Request {
+	return &Request{
+		Type: RequestStartSession,
+		Cmd:  cmd,
+		Env:  env,
+	}
+}
+
+// NewCancelSessionRequest returns a new [Request] of type
+// [RequestCancelSession].
+func NewCancelSessionRequest() *Request {
+	return &Request{
+		Type: RequestCancelSession,
+	}
+}
