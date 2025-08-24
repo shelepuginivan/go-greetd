@@ -18,3 +18,20 @@ const (
 	// [RequestCancelSession].
 	ResponseAuthMessage ResponseType = "auth_message"
 )
+
+type Response struct {
+	// Type of the response.
+	Type ResponseType `json:"type"`
+
+	// Type of the occurred error. Present if Type is [ResponseError].
+	ErrorType ErrorType `json:"error_type"`
+
+	// Description of the error. Present if Type is [ResponseError].
+	Description string `json:"description"`
+
+	// Type of the auth message. Present if Type is [ResponseAuthMessage].
+	AuthMessageType AuthMessageType `json:"auth_message_type"`
+
+	// Auth message. Present if Type is [ResponseAuthMessage].
+	AuthMessage string `json:"auth_message"`
+}
