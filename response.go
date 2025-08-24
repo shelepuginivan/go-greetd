@@ -1,5 +1,36 @@
 package greetd
 
+// AuthMessageType represents type of the authentication message.
+type AuthMessageType string
+
+const (
+	// Indicates that input from the user should be visible when they answer this
+	// question.
+	AuthMessageVisible AuthMessageType = "visible"
+
+	// Indicates that input from the user should be considered secret when they
+	// answer this question.
+	AuthMessageSecret AuthMessageType = "secret"
+
+	// Indicates that this message is informative, not a question.
+	AuthMessageInfo AuthMessageType = "info"
+
+	// Indicates that this message is an error, not a question.
+	AuthMessageError AuthMessageType = "error"
+)
+
+// ErrorType represents type of the error.
+type ErrorType string
+
+const (
+	// Indicates that authentication failed. This is not a fatal error, and is
+	// likely caused by incorrect credentials. Handle as appropriate.
+	ErrorAuth ErrorType = "auth_error"
+
+	// A general error. See the error description for more information.
+	ErrorGeneral ErrorType = "error"
+)
+
 // ResponseType represents type of the response.
 type ResponseType string
 
