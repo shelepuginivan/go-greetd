@@ -67,11 +67,11 @@ func (c *Client) Do(request *Request) (*Response, error) {
 		return nil, err
 	}
 
+	payloadLength := uint32(len(payload))
 	length := make([]byte, 4)
-	binary.NativeEndian.PutUint32(length, uint32(len(payload)))
+	binary.NativeEndian.PutUint32(length, payloadLength)
 
-	message := make([]byte, len(length)+len(payload))
-
+	message := make([]byte, 4+payloadLength)
 	copy(message[0:4], length)
 	copy(message[4:], payload)
 
@@ -83,18 +83,17 @@ func (c *Client) Do(request *Request) (*Response, error) {
 		return nil, err
 	}
 
-	responseLength := binary.NativeEndian.Uint32(length)
+	payloadLength = binary.NativeEndian.Uint32(length)
+	payload = make([]byte, payloadLength)
 
-	buffer := make([]byte, responseLength+1)
-
-	n, err := c.conn.Read(buffer)
+	n, err := c.conn.Read(payload)
 	if err != nil {
 		return nil, err
 	}
 
 	var response Response
 
-	if err := json.Unmarshal(buffer[0:n], &response); err != nil {
+	if err := json.Unmarshal(payload[0:n], &response); err != nil {
 		return nil, err
 	}
 
