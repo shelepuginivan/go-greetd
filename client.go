@@ -1,3 +1,6 @@
+// Package greetd implements IPC protocol for [greetd].
+//
+// [greetd]: https://git.sr.ht/~kennylevinsen/greetd
 package greetd
 
 import (
