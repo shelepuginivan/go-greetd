@@ -25,21 +25,21 @@ const (
 // Request represents a request to greetd.
 type Request struct {
 	// Type of the request.
-	Type RequestType `json:"type"`
+	Type RequestType `json:"type,omitempty"`
 
 	// Username. Required if Type is [RequestCreateSession].
-	Username string `json:"username"`
+	Username string `json:"username,omitempty"`
 
 	// Response to the auth message, typically, a password.
 	// Required if Type is [RequestPostAuthMessageResponse].
-	Response string `json:"response"`
+	Response string `json:"response,omitempty"`
 
 	// Command to spawn the session. Required if Type is [RequestStartSession].
-	Cmd []string `json:"cmd"`
+	Cmd []string `json:"cmd,omitempty"`
 
 	// Additional environment variables for PAM, in the form of "KEY=VALUE".
 	// Required if Type is [RequestStartSession].
-	Env []string `json:"env"`
+	Env []string `json:"env,omitempty"`
 }
 
 // NewCreateSessionRequest returns a new [Request] of type

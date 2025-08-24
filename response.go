@@ -21,17 +21,17 @@ const (
 
 type Response struct {
 	// Type of the response.
-	Type ResponseType `json:"type"`
+	Type ResponseType `json:"type,omitempty"`
 
 	// Type of the occurred error. Present if Type is [ResponseError].
-	ErrorType ErrorType `json:"error_type"`
+	ErrorType ErrorType `json:"error_type,omitempty"`
 
 	// Description of the error. Present if Type is [ResponseError].
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 
 	// Type of the auth message. Present if Type is [ResponseAuthMessage].
-	AuthMessageType AuthMessageType `json:"auth_message_type"`
+	AuthMessageType AuthMessageType `json:"auth_message_type,omitempty"`
 
 	// Auth message. Present if Type is [ResponseAuthMessage].
-	AuthMessage string `json:"auth_message"`
+	AuthMessage string `json:"auth_message,omitempty"`
 }
