@@ -3,6 +3,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/shelepuginivan/go-greetd.svg)](https://pkg.go.dev/github.com/shelepuginivan/go-greetd)
 [![Go Report Card](https://goreportcard.com/badge/github.com/shelepuginivan/go-greetd)](https://goreportcard.com/report/github.com/shelepuginivan/go-greetd)
 [![License: MIT](https://img.shields.io/badge/License-MIT-00cc00.svg)](https://github.com/shelepuginivan/go-greetd/blob/main/LICENSE)
+[![Test package](https://github.com/shelepuginivan/go-greetd/actions/workflows/go.yml/badge.svg)](https://github.com/shelepuginivan/go-greetd/actions/workflows/go.yml)
 
 Package `go-greetd` implements IPC protocol for [greetd](https://git.sr.ht/~kennylevinsen/greetd).
 See [`greetd-ipc(7)`](https://man.archlinux.org/man/greetd-ipc.7) for details about the protocol.
