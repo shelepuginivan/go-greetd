@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"path/filepath"
 	"testing"
 	"time"
 
@@ -16,7 +17,7 @@ import (
 
 func TestClient(t *testing.T) {
 	t.Run("Basic IPC communication", func(t *testing.T) {
-		socket := tmpSocket()
+		socket := tmpSocket(t)
 		server := createMockSrv(t, socket)
 		client, err := NewClientWithSocket(socket)
 		assert.NoError(t, err)
@@ -52,14 +53,14 @@ func TestClient(t *testing.T) {
 	})
 
 	t.Run("Socket does not exist", func(t *testing.T) {
-		client, err := NewClientWithSocket(tmpSocket())
+		client, err := NewClientWithSocket(tmpSocket(t))
 		assert.Nil(t, client)
 		assert.Error(t, err)
 	})
 
 	t.Run("Using GREETD_SOCK", func(t *testing.T) {
 		t.Run("Environment variable is set", func(t *testing.T) {
-			socket := tmpSocket()
+			socket := tmpSocket(t)
 			os.Setenv("GREETD_SOCK", socket)
 			server := createMockSrv(t, socket)
 			client, err := NewClient()
@@ -92,7 +93,7 @@ func TestClient(t *testing.T) {
 	})
 
 	t.Run("Implements ReadWriter", func(t *testing.T) {
-		socket := tmpSocket()
+		socket := tmpSocket(t)
 		server := createMockSrv(t, socket)
 		client, err := NewClientWithSocket(socket)
 		assert.NoError(t, err)
@@ -126,8 +127,8 @@ func TestClient(t *testing.T) {
 	})
 }
 
-func tmpSocket() string {
-	return fmt.Sprintf("/tmp/go_greetd_test_%d.sock", time.Now().Unix())
+func tmpSocket(t *testing.T) string {
+	return filepath.Join(t.TempDir(), fmt.Sprintf("go_greetd_test_%d.sock", time.Now().Unix()))
 }
 
 // MockGreetdServer is a mock implementation of greetd IPC server used for
